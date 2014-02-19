@@ -72,9 +72,9 @@ class WP_Tokens implements StorageInterface
 		if ($type != 'request_token' && $type != 'access_token') {
 			throw new \Dropbox\Exception("Expected a type of either 'request_token' or 'access_token', got '$type'");
 		} else {
-			$settings = hmbkpp_fetch_settings();
-			if (  false !== ( $token = $settings[$type] ) ) {
-				$token = $this->decrypt( $token );
+			$settings = hmbkpp_dx_fetch_settings();
+			if (  ! empty( $settings[$type] ) ) {
+				$token = $this->decrypt( $settings[$type] );
 				return $token;
 			}
 			return false;
@@ -94,7 +94,7 @@ class WP_Tokens implements StorageInterface
 			throw new \Dropbox\Exception("Expected a type of either 'request_token' or 'access_token', got '$type'");
 		} else {
 			$token = $this->encrypt($token);
-			$settings = hmbkpp_fetch_settings();
+			$settings = hmbkpp_dx_fetch_settings();
 			$settings[$type] = $token;
 			update_option( 'hmbkpp_dx_settings', $settings );
 		}
@@ -106,9 +106,9 @@ class WP_Tokens implements StorageInterface
 	 */
 	public function delete()
 	{
-		$settings = hmbkpp_fetch_settings();
-		unset( $settings['access_token'] );
-		unset( $settings['request_token'] );
+		$settings = hmbkpp_dx_fetch_settings();
+		$settings['refresh_token'] = '';
+		$settings['access_token'] = '';
 		update_option( 'hmbkpp_dx_settings', $settings );
 		return true;
 	}
