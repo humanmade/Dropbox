@@ -107,8 +107,8 @@ class WP_Tokens implements StorageInterface
 	public function delete()
 	{
 		$settings = hmbkpp_dx_fetch_settings();
-		$settings['refresh_token'] = '';
-		$settings['access_token'] = '';
+		unset( $settings['refresh_token'] );
+		unset( $settings['access_token']);
 		update_option( 'hmbkpp_dx_settings', $settings );
 		return true;
 	}
