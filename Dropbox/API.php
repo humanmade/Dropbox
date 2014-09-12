@@ -574,7 +574,7 @@ class API
      */
     private function normalisePath($path)
     {
-        $path = preg_replace('#/+#', '/', trim($path, '/'));
+        $path = str_replace('\\', '/', preg_replace('#/+#', '/', trim($path, '/')));
         return $path;
     }
     
