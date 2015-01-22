@@ -35,11 +35,20 @@ class Encrypter
     {
         if (!extension_loaded('mcrypt')) {
             throw new \Dropbox\Exception('The storage encrypter requires the MCrypt extension');
-        } elseif (($length = mb_strlen($key, '8bit')) !== self::KEY_SIZE) {
+        } elseif (($length = $this->hmbkp_strlen($key)) !== self::KEY_SIZE) {
             throw new \Dropbox\Exception('Expecting a ' .  self::KEY_SIZE . ' byte key, got ' . $length);
         } else {
             // Set the encryption key
             $this->key = $key;
+        }
+    }
+
+    protected function hmbkp_strlen( $key ) {
+
+        if ( function_exists( 'mb_strlen' ) ) {
+            return mb_strlen($key, '8bit');
+        } else {
+            return strlen( $key );
         }
     }
     
