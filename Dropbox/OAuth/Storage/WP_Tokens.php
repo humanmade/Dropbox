@@ -13,6 +13,8 @@
  */
 namespace Dropbox\OAuth\Storage;
 
+use HM\BackUpWordPressDropbox\Plugin;
+
 class WP_Tokens implements StorageInterface
 {
 	/**
@@ -72,7 +74,7 @@ class WP_Tokens implements StorageInterface
 		if ($type != 'request_token' && $type != 'access_token') {
 			throw new \Dropbox\Exception("Expected a type of either 'request_token' or 'access_token', got '$type'");
 		} else {
-			$plugin = \BackUpWordPress_Dropbox::get_instance();
+			$plugin = Plugin::get_instance();
 			$settings = $plugin->fetch_settings();
 			if (  ! empty( $settings[$type] ) ) {
 				$token = $this->decrypt( $settings[$type] );
@@ -95,7 +97,7 @@ class WP_Tokens implements StorageInterface
 			throw new \Dropbox\Exception("Expected a type of either 'request_token' or 'access_token', got '$type'");
 		} else {
 			$token = $this->encrypt($token);
-			$plugin = \BackUpWordPress_Dropbox::get_instance();
+			$plugin = Plugin::get_instance();
 			$settings = $plugin->fetch_settings();
 			$settings[$type] = $token;
 			update_option( 'hmbkpp_dx_settings', $settings );
@@ -108,7 +110,7 @@ class WP_Tokens implements StorageInterface
 	 */
 	public function delete()
 	{
-		$plugin = \BackUpWordPress_Dropbox::get_instance();
+		$plugin = Plugin::get_instance();
 		$settings = $plugin->fetch_settings();
 		unset( $settings['refresh_token'] );
 		unset( $settings['access_token'] );
