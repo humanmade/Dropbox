@@ -1,14 +1,14 @@
 {
-    "name": "benthedesigner/dropbox",
+    "name": "humanmade/dropbox",
     "type": "library",
     "description": "PHP 5.3 SDK for the Dropbox REST API",
     "keywords": ["Dropbox", "API"],
-    "homepage": "https://github.com/BenTheDesigner/Dropbox",
+    "homepage": "https://github.com/humanmade/Dropbox",
     "license": "MIT",
     "authors": [
         {
-            "name": "Ben Tadiar",
-            "email": "ben@handcraftedbyben.co.uk",
+            "name": "Human Made Limited",
+            "email": "hello@hmn.md",
             "role": "Developer"
         }
     ],
